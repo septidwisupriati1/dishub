@@ -1,0 +1,1219 @@
+{
+  "info": {
+    "_postman_id": "kir-antrean-api-collection",
+    "name": "KIR Antrean API Collection",
+    "description": "API documentation for Sistem Antrian KIR (Kendaraan Bermotor)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"08123456789\",\n  \"role\": \"peserta\",\n  \"password\": \"password123\",\n  \"password_confirmation\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Register a new user (peserta or penguji)"
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login user and get API token"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/user",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "user"
+              ]
+            },
+            "description": "Get authenticated user profile"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe Updated\",\n  \"phone\": \"08123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/profile",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "profile"
+              ]
+            },
+            "description": "Update user profile"
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"current_password\": \"password123\",\n  \"new_password\": \"newpassword123\",\n  \"new_password_confirmation\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/change-password",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "change-password"
+              ]
+            },
+            "description": "Change user password"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Logout user (invalidate token)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🚗 Vehicles",
+      "item": [
+        {
+          "name": "List Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&per_page=15",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "15"
+                }
+              ]
+            },
+            "description": "List all vehicles (peserta see own, admin see all)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Vehicle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle_number\": \"B1234CD\",\n  \"vehicle_type\": \"sedan\",\n  \"brand\": \"Toyota\",\n  \"model\": \"Camry\",\n  \"year\": 2022,\n  \"color\": \"Silver\",\n  \"engine_number\": \"1234567890\",\n  \"chassis_number\": \"ABCD1234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/vehicles",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ]
+            },
+            "description": "Create new vehicle (peserta only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Vehicle Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "1"
+              ]
+            },
+            "description": "Get vehicle detail by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Vehicle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle_number\": \"B1234CD\",\n  \"color\": \"Red\",\n  \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "1"
+              ]
+            },
+            "description": "Update vehicle (peserta own, admin all)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Vehicle",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "1"
+              ]
+            },
+            "description": "Delete vehicle (peserta own, admin all)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Vehicle Test History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1/test-history",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "1",
+                "test-history"
+              ]
+            },
+            "description": "Get all test history for a vehicle"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📋 Queues",
+      "item": [
+        {
+          "name": "List Queues",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/queues?page=1&per_page=15&status=waiting",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "queues"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "15"
+                },
+                {
+                  "key": "status",
+                  "value": "waiting"
+                }
+              ]
+            },
+            "description": "List all queues (peserta see own, penguji/admin see all)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Queue",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicle_id\": 1,\n  \"test_schedule_id\": 1,\n  \"notes\": \"First time testing\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/queues",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "queues"
+              ]
+            },
+            "description": "Create new queue (peserta only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Queue Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/queues/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "queues",
+                "1"
+              ]
+            },
+            "description": "Get queue detail by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Call Queue",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/queues/1/call",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "queues",
+                "1",
+                "call"
+              ]
+            },
+            "description": "Call queue (penguji/admin only, changes status to in_progress)"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Queue",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Engine problem\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/queues/1/cancel",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "queues",
+                "1",
+                "cancel"
+              ]
+            },
+            "description": "Cancel queue (peserta own or admin)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Queue Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/queues/stats",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "queues",
+                "stats"
+              ]
+            },
+            "description": "Get queue statistics"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "✅ Test Results",
+      "item": [
+        {
+          "name": "List Test Results",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/test-results?page=1&per_page=15",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-results"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "15"
+                }
+              ]
+            },
+            "description": "List all test results"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Test Result",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queue_id\": 1,\n  \"vehicle_id\": 1,\n  \"emission_status\": \"pass\",\n  \"emission_notes\": \"Emission within limit\",\n  \"brake_status\": \"pass\",\n  \"brake_notes\": \"Brake system OK\",\n  \"light_status\": \"pass\",\n  \"light_notes\": \"All lights working\",\n  \"horn_status\": \"pass\",\n  \"horn_notes\": \"Horn functional\",\n  \"suspension_status\": \"pass\",\n  \"suspension_notes\": \"Suspension good\",\n  \"tire_status\": \"fail\",\n  \"tire_notes\": \"Left tire worn out\",\n  \"overall_status\": \"fail\",\n  \"overall_notes\": \"Vehicle failed due to tire condition\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/test-results",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-results"
+              ]
+            },
+            "description": "Create test result (penguji/admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Test Result Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/test-results/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-results",
+                "1"
+              ]
+            },
+            "description": "Get test result detail by ID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📊 Reports & Statistics",
+      "item": [
+        {
+          "name": "Get Penguji Daily Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/penguji/daily-stats",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "penguji",
+                "daily-stats"
+              ]
+            },
+            "description": "Get daily statistics for logged-in penguji (penguji only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Admin Daily Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/daily-report",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "daily-report"
+              ]
+            },
+            "description": "Get admin daily report (admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📅 Test Schedules (Admin Only)",
+      "item": [
+        {
+          "name": "List Test Schedules",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/test-schedules?page=1&per_page=15",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-schedules"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "15"
+                }
+              ]
+            },
+            "description": "List all test schedules (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Test Schedule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"test_date\": \"2026-05-15\",\n  \"capacity\": 20,\n  \"description\": \"Regular testing session\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/test-schedules",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-schedules"
+              ]
+            },
+            "description": "Create new test schedule (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Test Schedule Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/test-schedules/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-schedules",
+                "1"
+              ]
+            },
+            "description": "Get test schedule detail (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Test Schedule",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"capacity\": 25,\n  \"description\": \"Updated testing session\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/test-schedules/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-schedules",
+                "1"
+              ]
+            },
+            "description": "Update test schedule (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Test Schedule",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/test-schedules/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "test-schedules",
+                "1"
+              ]
+            },
+            "description": "Delete test schedule (admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "💬 WhatsApp Configuration (Admin Only)",
+      "item": [
+        {
+          "name": "List WhatsApp Configs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/whatsapp-configs",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "whatsapp-configs"
+              ]
+            },
+            "description": "List all WhatsApp configurations (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create WhatsApp Config",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"twilio\",\n  \"api_key\": \"your_api_key\",\n  \"api_secret\": \"your_api_secret\",\n  \"phone_number\": \"+6281234567890\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/whatsapp-configs",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "whatsapp-configs"
+              ]
+            },
+            "description": "Create WhatsApp configuration (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get WhatsApp Config Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/whatsapp-configs/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "whatsapp-configs",
+                "1"
+              ]
+            },
+            "description": "Get WhatsApp config detail (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update WhatsApp Config",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"+6289876543210\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/whatsapp-configs/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "whatsapp-configs",
+                "1"
+              ]
+            },
+            "description": "Update WhatsApp configuration (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete WhatsApp Config",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/whatsapp-configs/1",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "whatsapp-configs",
+                "1"
+              ]
+            },
+            "description": "Delete WhatsApp configuration (admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Test WhatsApp Connection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/whatsapp-configs/1/test",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "whatsapp-configs",
+                "1",
+                "test"
+              ]
+            },
+            "description": "Test WhatsApp connection (admin only)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost/kir-antrean",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "your_api_token_here",
+      "type": "string"
+    }
+  ]
+}
